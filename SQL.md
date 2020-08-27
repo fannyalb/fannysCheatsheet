@@ -17,3 +17,16 @@ regexp_substr(info, '.*Platzierung (\d*) von *',1,1,NULL,1)
 extract(MONTH FROM datumsfeld)
 ```
 
+# SqlPlus
+
+* Find current directory in SQL*Plus
+  * UNIX/Linux: Use the "!" to shell out"
+
+```sql
+SQL> !pwd
+``` 
+  * In Windows:  Use the "host command" to shell out:
+  
+```sql
+SQL> host cd
+```
