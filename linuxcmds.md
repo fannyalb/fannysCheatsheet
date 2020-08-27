@@ -13,6 +13,8 @@ uniq 	# remove duplicates
 wc -l Zeilen zaehlen
 
 grep -i "suche case InSenSitIV"
+
+sed -i 's/old-text/new-text/g' fileToEdit.txt
 ```
 
 
