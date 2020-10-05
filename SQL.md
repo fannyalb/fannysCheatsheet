@@ -1,5 +1,5 @@
 # SQL/Oracle
-Oracle
+## Oracle
 * Spalten als Comma-SeparatedS-List ausgeben
 ```sql
 select listagg(spaltenname, ',') within group (order by spaltenname) from tabelle;
@@ -46,6 +46,13 @@ BEGIN
   END LOOP;
   CLOSE curs;
 END;
+```
+
+* User-Berechtigungen
+```sql
+select * from user_sys_privs;
+select * from user_tab_privs;
+select * from user_role_privs;
 ```
 
 # SqlPlus
