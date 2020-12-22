@@ -1,5 +1,13 @@
 # Shell/Bash
-## Preufe ob Directory existiert
+## Arrays
+```bash
+myArray=("This" "is" "an" "array")
+for i in "${myArray[@]}"
+do
+	echo "$i"
+done
+```
+## Pruefe ob Directory existiert
 ```bash
 DIR=/ein/verzeichnis
 if [ -d $DIR ] ; then
