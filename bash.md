@@ -1,4 +1,11 @@
 # Shell/Bash
+## Preufe ob Directory existiert
+```bash
+DIR=/ein/verzeichnis
+if [ -d $DIR ] ; then
+	echo "$DIR existiert"
+fi
+```
 
 ## Argumente auswerten
 ```bash
