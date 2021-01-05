@@ -1,4 +1,4 @@
-# Linxu cmds
+# Linux cmds
 #### find
 ```sh
 find . -mtime -3  # Modification Time < 3 Tage
