@@ -1,25 +1,36 @@
 # SQL/Oracle
 ## Oracle
-* Spalten als Comma-SeparatedS-List ausgeben
+### Spalten als Comma-SeparatedS-List ausgeben
 ```sql
 select listagg(spaltenname, ',') within group (order by spaltenname) from tabelle;
 ```
 
-* Daten
+### Daten
 ```sql 
 select to_date(datumstext, 'MM/DD/YYYY HH24::MI:SS') from tabelle;
 ```
+
 ```sql
 extract(MONTH FROM datumsfeld)
 ```
 
-* Regex
+### Regex
+* ? 
 ```sql
 regexp_substr(info, '.*Platzierung (\d*) von *',1,1,NULL,1)
 ```
+* Erstes Wort einer Zeichenkette
+```sql
+SELECT REGEXP_SUBSTR ('TechOnTheNet is a great resource', '(\S*))
+FROM dual;
+```
+* Zweites Wort einer Zeichenkette
+```sql
+SELECT REGEXP_SUBSTR ('TechOnTheNet is a great resource', '(\S*)(\s)', 1, 2)
+FROM dual;
+```
 
-
-* Bedingungen
+### Bedingungen
 ```sql
 CASE [ expression ]
    WHEN condition_1 THEN result_1
@@ -31,7 +42,7 @@ CASE [ expression ]
 END
 ```
 
-* Cursor
+### Cursor
 ```sql
 DECLARE
  curr_spalte VARCHAR2(64);
