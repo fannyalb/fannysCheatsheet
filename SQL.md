@@ -1,5 +1,20 @@
 # SQL/Oracle
 ## Oracle
+
+### Was braucht wie viel Platz?
+```sql
+SELECT owner,
+       segment_name,
+       segment_type,
+       sum(bytes)/1024/1024 size_in_mb
+  FROM dba_segments
+ WHERE owner NOT IN ('SYS','SYSTEM')
+ GROUP BY owner, 
+          segment_name,
+          segment_type
+ ORDER BY SUM(bytes)/1024/1024 desc;
+ ```
+ 
 ### Spalten als Comma-SeparatedS-List ausgeben
 ```sql
 select listagg(spaltenname, ',') within group (order by spaltenname) from tabelle;
