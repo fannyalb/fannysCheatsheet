@@ -1,5 +1,30 @@
 # SQL/Oracle
 ## Oracle
+### MAP member Functions
+Ist aehnlich wie die compareTo()-Methode in Java. Wird beim Vergleichen von den Typen verwendet.
+```sql
+CREATE OR REPLACE TYPE obj_map
+IS
+  OBJECT
+  (
+    obj_var1 NUMBER,
+    MEMBER PROCEDURE print,
+    MAP MEMBER FUNCTION func_map RETURN NUMBER);
+
+CREATE OR REPLACE TYPE body obj_map
+IS
+  MEMBER PROCEDURE print
+IS
+BEGIN
+  dbms_output.put_line(self.obj_var1);
+END;
+MAP MEMBER FUNCTION func_map RETURN NUMBER
+IS
+BEGIN
+  RETURN obj_var1;
+END;
+```
+
 
 ### Was braucht wie viel Platz?
 ```sql
