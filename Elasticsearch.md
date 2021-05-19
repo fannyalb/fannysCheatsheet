@@ -25,66 +25,66 @@ Holt die Daten, die wir evaluieren wollen.
 "PRIO_INFO" im Feld "prio.keyword" steht
 
 ```json
-	"input": {
-	  "search": {
-		"request": {
-		  "indices": [ "myindex*" ],
-		  "body": {
-			"query": {
-			  "match": {
-				"prio.keyword": "PRIO_INFO"
-			  }
-			}
+"input": {
+  "search": {
+	"request": {
+	  "indices": [ "myindex*" ],
+	  "body": {
+		"query": {
+		  "match": {
+			"prio.keyword": "PRIO_INFO"
 		  }
 		}
 	  }
-	},
-	{
-	  "trigger": {
-		"schedule": {
-		  "interval": "10m"
-		}
-	  },
-	  "input": {
-		"search": {
-		  "request": {
-			"search_type": "query_then_fetch",
-			"indices": [
-			  "myindex*"
-			],
-			"rest_total_hits_as_int": true,
-			"body": {
-			  "query": {
-				"match": {
-				  "prio.keyword": "PRIO_INFO"
-				}
-			  }
-			}
-		  }
-		}
-	  },
-	  "condition": {
-		"compare": {
-		  "ctx.payload.hits.total": {
-			"gte": 0
-		  }
-		}
-	  },
-	  "actions": {
-		"send_email": {
-		  "email": {
-			"profile": "standard",
-			"to": [
-			  "your@mail.com"
-			],
-			"subject": "Watcher notification",
-			"body": {
-			  "text": "{{ctx.payload.hits.total}} PRIO_INFOS"
+	}
+  }
+},
+{
+  "trigger": {
+	"schedule": {
+	  "interval": "10m"
+	}
+  },
+  "input": {
+	"search": {
+	  "request": {
+		"search_type": "query_then_fetch",
+		"indices": [
+		  "myindex*"
+		],
+		"rest_total_hits_as_int": true,
+		"body": {
+		  "query": {
+			"match": {
+			  "prio.keyword": "PRIO_INFO"
 			}
 		  }
 		}
 	  }
 	}
+  },
+  "condition": {
+	"compare": {
+	  "ctx.payload.hits.total": {
+		"gte": 0
+	  }
+	}
+  },
+  "actions": {
+	"send_email": {
+	  "email": {
+		"profile": "standard",
+		"to": [
+		  "your@mail.com"
+		],
+		"subject": "Watcher notification",
+		"body": {
+		  "text": "{{ctx.payload.hits.total}} PRIO_INFOS"
+		}
+	  }
+	}
+  }
+}
 ```
 
 ## Filter
@@ -101,24 +101,23 @@ muessen
 ### `"filter"`
 * `"range"`: Fuer Intervalle (Zeit, Int, ...)
 
-	```json
-	{
-	  "query": {
-			"bool" : {
-				"must": [
-					{ "match" : { "prio.keyword" : "PRIO_ERROR" }}
-				],
-				"filter" : [
-					"range" : {
-						"@timestamp": {
-							"gte" : "{{ctx.trigger.scheduled_time}}||-10m",
-							"lte": "{{ctx.trigger.scheduled_time}}"
-						}
-						
-					}
-
-				]
+```json
+{
+"query": {
+	"bool" : {
+		"must": [
+			{ "match" : { "prio.keyword" : "PRIO_ERROR" }}
+		]
+	"filter" : [ 
+	    {"range" : {
+		"@timestamp": {
+			"gte" : "{{ctx.trigger.scheduled_time}}||-10m",
+			"lte": "{{ctx.trigger.scheduled_time}}"
 		}
+	}}
+	]
+}
+```
 
 ## Watcher-Context-Felder
 * `{{ctx.trigger.scheduled_time}}`: Zeit, zu der der Trigger ausgeloest werden
