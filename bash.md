@@ -1,5 +1,11 @@
 # Shell/Bash
 
+## Prepend to Cmdline args
+
+```bash
+cmd argument1 argument2 "$@"
+```
+
 ## Braces, Brackets, Parantheses
 * Bei `if` fuer nur 1 boolsche Variable GAR KEINE KLAMMERN
 * `[ ]` : Single brackets are used for comparison operations. In the past [ was a command like the unix test command.
