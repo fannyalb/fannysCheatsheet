@@ -13,6 +13,11 @@ find . -mtime +2  # Modification Time > 2 Tage
 find . -mtime -2 -exec mv "{}" /dest/dir \; # Mv all files older Than 2 days to /dest/dir
 find  ./ -type d \( -path ./AppData \)  -prune -false -o -name '*.txt' # Alle .txt-Dateien ausser in ./AppData
 ```
+#### awk
+
+```sh
+awk '{ print $1, $2 }' inventory-shipped
+```
 
 #### Other
 ```sh
