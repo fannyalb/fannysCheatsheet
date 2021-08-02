@@ -83,6 +83,23 @@ END
 ```
 
 ### Cursor
+Viel besser als untenstehendes ist das (von https://www.oracletutorial.com/plsql-tutorial/plsql-cursor-for-loop/) :
+
+```sql
+DECLARE
+  CURSOR c_product
+  IS
+    SELECT product_name, list_price
+    FROM products 
+    ORDER BY list_price DESC;
+BEGIN
+  FOR r_product IN c_product
+  LOOP
+    dbms_output.put_line( r_product.product_name || ': $' ||  r_product.list_price );
+  END LOOP;
+END;
+```
+
 ```sql
 DECLARE
  curr_spalte VARCHAR2(64);
