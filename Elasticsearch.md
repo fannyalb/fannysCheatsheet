@@ -1,6 +1,59 @@
-# Einfacher Watcher
+# Opendistro
 
-## Schedule 
+## Term-Level-Queries
+* Which documents match a query
+* search term isn't analyzed
+* simply return documents
+* when you want to match exact values (numbers, dates,...)
+
+### Term
+```json
+GET shakespeare/_search
+{
+  "query": {
+    "term": {
+      "speaker": "HAMLET"
+    }
+  }
+}
+```
+
+### Range
+GET shakespeare/_search
+{
+  "query": {
+    "range": {
+      "line_id": {
+        "gte": 10,
+        "lte": 20
+      }
+    }
+  }
+}
+
+### Weitere 
+* `prefix` 
+* `exists`
+
+## Full-Text-Queries
+* how well the document matches a query
+* calculate a relevance score for each match and sort by decreasing order of relevance
+* use to match text fields and sort by relevance
+
+```json
+GET shakespeare/_search
+{
+  "query": {
+    "match": {
+      "text_entry": "To be, or not to be"
+    }
+  }
+}
+```
+
+## Einfacher Watcher
+
+### Schedule 
 
 Wie oft der Watcher getriggert wird:
 * `"interval" : "10m"` ... alle 10 Minuten
@@ -17,7 +70,7 @@ Wie oft der Watcher getriggert wird:
   }
 ```
 
-##  Input
+###  Input
 
 Holt die Daten, die wir evaluieren wollen.
 * `"query" :  { "match_all" : {}}` ... keine Einschränkung, alle Logs
@@ -87,7 +140,7 @@ Holt die Daten, die wir evaluieren wollen.
 }
 ```
 
-## Filter
+### Filter
 
 * **`"bool"`**: hier sind alle Bedingungen definiert, die in der Suche erfuellt sein
 muessen
@@ -98,7 +151,7 @@ muessen
 	* `"should"`: ?
 	* `"must_not"`
 
-### `"filter"`
+#### `"filter"`
 * `"range"`: Fuer Intervalle (Zeit, Int, ...)
 
 ```json
@@ -119,7 +172,7 @@ muessen
 }
 ```
 
-## Watcher-Context-Felder
+### Watcher-Context-Felder
 * `{{ctx.trigger.scheduled_time}}`: Zeit, zu der der Trigger ausgeloest werden
 	sollte
 * `{{ctx.payload.hits.total}}`: Anzahl, der mittels Query gefundenen Resultate
