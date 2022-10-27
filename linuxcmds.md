@@ -19,11 +19,19 @@ find  ./ -type d \( -path ./AppData \)  -prune -false -o -name '*.txt' # Alle .t
 awk '{ print $1, $2 }' inventory-shipped
 ```
 
+
+#### sed
+```sh
+# If you want to use variables into the sed,  use double quotes instead of single quotes
+
+sed -i 's/foo/bar/g' somefile.txt                 # find and replace foo with bar in somefile.txt
+sudo sed -i "s|^GRUB_DEFAULT=.*$|GRUB_DEFAULT=\"$win_location\"|g" /etc/default/grub
+``` 
+
 #### Other
 ```sh
-sed -i 's/foo/bar/g' somefile.txt                 # find and replace foo with bar in somefile.txt
 
-cat soefilewithcolumnd | awk '{print $1}'         # Print first Column
+awk '{print $1}' soefilewithcolumnd               # Print first Column
 
 uniq 	                                            # remove duplicate lines
 
