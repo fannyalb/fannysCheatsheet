@@ -40,4 +40,11 @@ wc -l                                             # Zeilen zaehlen
 grep -i "suche case InSenSitIV"
 ```
 
-
+### NGINX Accesslogsuche
+ * Relevante Spalten
+```sh 
+awk '{ print $1, $4, $27, $28, $7}' access.log
+```
+* Datum besser formatieren `[18/Jan/2023:06:25:04 +0100]` -> `17-01-2023 06:25`
+```sh
+sed 's/\[17\/Jan\/2023:\([0-9]*\)/17-01-2023 \1/g' access.log | sed -re 's/([0-9]{2}:[0-9]{2}):[0-9]{2} /\1 /g'
