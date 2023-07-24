@@ -1,34 +1,54 @@
 # Linux cmds
-#### GROUP BY substring of filename
+### GROUP BY substring of filename
 * Quasi sowas wie `SELECT count(*), SUBSTR(filename, 0, 7) FROM current_dir GROUP BY SUBSTR(filename,0, 7)`
 
 ```sh
 for dat in $(ls) ; do echo ${dat:0:7} ; done | sort -n | uniq -c
 ```
 
-#### find
+### find
 ```sh
 find . -mtime -3  # Modification Time < 3 Tage
 find . -mtime +2  # Modification Time > 2 Tage
 find . -mtime -2 -exec mv "{}" /dest/dir \; # Mv all files older Than 2 days to /dest/dir
 find  ./ -type d \( -path ./AppData \)  -prune -false -o -name '*.txt' # Alle .txt-Dateien ausser in ./AppData
 ```
-#### awk
+### awk
 
 ```sh
 awk '{ print $1, $2 }' inventory-shipped
 ```
 
 
-#### sed
+### sed
+#### Replace foo with bar in somefile.txt
+```sh
+sed -i 's/foo/bar/g' somefile.txt                 # find and replace foo with bar in somefile.txt
+```
+
+#### Variables in sed
 ```sh
 # If you want to use variables into the sed,  use double quotes instead of single quotes
-
-sed -i 's/foo/bar/g' somefile.txt                 # find and replace foo with bar in somefile.txt
 sudo sed -i "s|^GRUB_DEFAULT=.*$|GRUB_DEFAULT=\"$win_location\"|g" /etc/default/grub
-``` 
+```
 
-#### Other
+#### Join 2 lines after a pattern
+
+```sh
+sed -n '/pattern/ {s/.*//; N; N; s/\n//g; p;}'
+```
+
+* `/pattern/` matches pattern and executes the brace block `{ }`.
+* `s/.*//` deletes pattern from pattern space, a shorter but more obscure way of getting rid of pattern is to exchange pattern space and hold space with the x command.
+* `N` takes next line from input file and appends it to pattern space.
+* `s/[\r\n]//g` removes all newlines and carriage returns from pattern space.
+* `p` prints pattern space.
+* A slightly shorter solution for combining 3 lines is:
+  ```sh
+  sed -n '/pattern/ {x; N; N; s/\n//g; p;}'
+  ```
+
+### Other
 ```sh
 
 awk '{print $1}' soefilewithcolumnd               # Print first Column
